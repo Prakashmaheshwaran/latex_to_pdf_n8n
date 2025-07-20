@@ -319,19 +319,9 @@ Use `\usepackage{changepage}` instead of `\usepackage{adjustwidth}`
 - Use relative paths in LaTeX documents
 - Cache compiled documents when possible
 
-## Examples Repository
-
-Find more examples and templates at: [GitHub Examples](https://github.com/your-repo/examples)
-
 ## License
 
 MIT License
-
-## Support
-
-- 📖 [Documentation](https://github.com/your-repo/docs)
-- 🐛 [Report Issues](https://github.com/your-repo/issues)
-- 💬 [Community Discussion](https://community.n8n.io)
 
 ---
 
