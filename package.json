@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-pdf-latex",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "n8n community node for converting LaTeX to PDF using node-latex",
   "keywords": [
     "n8n",
