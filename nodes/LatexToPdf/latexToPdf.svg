@@ -1,32 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#ff6b6b;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#d63031;stop-opacity:1" />
-    </linearGradient>
-  </defs>
-  
   <!-- Background -->
-  <rect x="0" y="0" width="60" height="60" rx="8" fill="url(#bgGradient)"/>
+  <rect x="0" y="0" width="60" height="60" rx="8" fill="#e74c3c"/>
   
-  <!-- LaTeX Text -->
-  <text x="8" y="18" font-family="Times, serif" font-size="12" fill="white" font-weight="bold">LaTeX</text>
+  <!-- LaTeX -->
+  <text x="6" y="20" font-family="Times, serif" font-size="14" fill="white" font-weight="bold">LaTeX</text>
   
   <!-- Arrow -->
-  <path d="M12 26 L35 26 M30 21 L35 26 L30 31" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M15 28 L40 28 M35 23 L40 28 L35 33" stroke="white" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
   
   <!-- PDF Document -->
-  <rect x="40" y="12" width="16" height="20" rx="2" fill="white" stroke="none"/>
-  <rect x="42" y="16" width="12" height="1.5" fill="#d63031"/>
-  <rect x="42" y="19" width="9" height="1.5" fill="#d63031"/>
-  <rect x="42" y="22" width="12" height="1.5" fill="#d63031"/>
-  <rect x="42" y="25" width="7" height="1.5" fill="#d63031"/>
+  <rect x="42" y="35" width="14" height="18" rx="1" fill="white"/>
+  <rect x="44" y="38" width="10" height="2" fill="#e74c3c"/>
+  <rect x="44" y="42" width="8" height="2" fill="#e74c3c"/>
+  <rect x="44" y="46" width="10" height="2" fill="#e74c3c"/>
   
-  <!-- PDF Label -->
-  <text x="15" y="48" font-family="Arial, sans-serif" font-size="10" fill="white" font-weight="bold">PDF</text>
-  
-  <!-- LaTeX Logo Symbol -->
-  <circle cx="48" cy="42" r="6" fill="rgba(255,255,255,0.9)"/>
-  <text x="45" y="46" font-family="Times, serif" font-size="8" fill="#d63031" font-weight="bold">TeX</text>
+  <!-- PDF Text -->
+  <text x="6" y="52" font-family="Arial, sans-serif" font-size="12" fill="white" font-weight="bold">PDF</text>
 </svg> 
