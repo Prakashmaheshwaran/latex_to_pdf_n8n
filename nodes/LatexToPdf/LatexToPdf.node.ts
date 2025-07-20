@@ -10,24 +10,31 @@ import {
 import * as fs from 'fs';
 import * as path from 'path';
 import * as os from 'os';
-import { promisify } from 'util';
 const latex = require('node-latex');
 
-async function convertLatexToPdf(latexContent: string, options: any): Promise<Buffer> {
+interface LatexOptions {
+	cmd: string;
+	passes: number;
+	args: string[];
+	inputs?: string;
+	fonts?: string;
+}
+
+async function convertLatexToPdf(latexContent: string, options: LatexOptions): Promise<Buffer> {
 	return new Promise((resolve, reject) => {
 		const chunks: Buffer[] = [];
-		
+
 		const pdfStream = latex(latexContent, options);
-		
+
 		pdfStream.on('data', (chunk: Buffer) => {
 			chunks.push(chunk);
 		});
-		
+
 		pdfStream.on('end', () => {
 			const pdfBuffer = Buffer.concat(chunks);
 			resolve(pdfBuffer);
 		});
-		
+
 		pdfStream.on('error', (error: Error) => {
 			reject(new Error(`LaTeX compilation failed: ${error.message}`));
 		});
@@ -45,7 +52,9 @@ export class LatexToPdf implements INodeType {
 		defaults: {
 			name: 'LaTeX to PDF',
 		},
+		// eslint-disable-next-line n8n-nodes-base/node-class-description-inputs-wrong-regular-node
 		inputs: [NodeConnectionType.Main],
+		// eslint-disable-next-line n8n-nodes-base/node-class-description-outputs-wrong
 		outputs: [NodeConnectionType.Main],
 		properties: [
 			{
@@ -76,7 +85,7 @@ export class LatexToPdf implements INodeType {
 						name: 'Convert to PDF',
 						value: 'convert',
 						description: 'Convert LaTeX content to PDF',
-						action: 'Convert LaTeX to PDF',
+						action: 'Convert la te x to pdf',
 					},
 				],
 				default: 'convert',
@@ -164,15 +173,15 @@ export class LatexToPdf implements INodeType {
 				},
 				options: [
 					{
-						name: 'pdflatex',
+						name: 'Pdflatex',
 						value: 'pdflatex',
 					},
 					{
-						name: 'xelatex',
+						name: 'Xelatex',
 						value: 'xelatex',
 					},
 					{
-						name: 'lualatex',
+						name: 'Lualatex',
 						value: 'lualatex',
 					},
 				],
@@ -244,10 +253,15 @@ export class LatexToPdf implements INodeType {
 
 				if (resource === 'document' && operation === 'convert') {
 					const inputType = this.getNodeParameter('inputType', i) as string;
-					const outputBinaryPropertyName = this.getNodeParameter('outputBinaryPropertyName', i) as string;
+					const outputBinaryPropertyName = this.getNodeParameter(
+						'outputBinaryPropertyName',
+						i,
+					) as string;
 					const latexCmd = this.getNodeParameter('latexCmd', i) as string;
 					const passes = this.getNodeParameter('passes', i) as number;
-					const additionalOptions = this.getNodeParameter('additionalOptions', i) as any;
+					const additionalOptions = this.getNodeParameter('additionalOptions', i) as {
+						option?: Array<{ inputs?: string; fonts?: string }>;
+					};
 
 					let latexContent: string;
 
@@ -262,7 +276,7 @@ export class LatexToPdf implements INodeType {
 					}
 
 					// Prepare latex options
-					const options: any = {
+					const options: LatexOptions = {
 						cmd: latexCmd,
 						passes: passes,
 						args: ['-halt-on-error'],
@@ -282,7 +296,7 @@ export class LatexToPdf implements INodeType {
 
 					// Create temporary directory for processing
 					const tempDir = await fs.promises.mkdtemp(path.join(os.tmpdir(), 'n8n-latex-'));
-					
+
 					try {
 						// Convert LaTeX to PDF
 						const pdfBuffer = await convertLatexToPdf(latexContent, options);
@@ -291,7 +305,7 @@ export class LatexToPdf implements INodeType {
 						const binaryData = await this.helpers.prepareBinaryData(
 							pdfBuffer,
 							`output-${Date.now()}.pdf`,
-							'application/pdf'
+							'application/pdf',
 						);
 
 						returnData.push({
@@ -332,6 +346,4 @@ export class LatexToPdf implements INodeType {
 
 		return [returnData];
 	}
-
-
-} 
+}

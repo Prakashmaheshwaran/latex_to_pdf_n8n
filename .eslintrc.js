@@ -29,11 +29,12 @@ module.exports = {
 			],
 			extends: [
 				'plugin:n8n-nodes-base/nodes',
-				'@n8n/eslint-config/node',
 			],
 			rules: {
 				'@typescript-eslint/no-unused-vars': 'error',
 				'@typescript-eslint/no-explicit-any': 'warn',
+				'no-console': 'warn',
+				'prefer-const': 'error',
 			},
 		},
 	],
