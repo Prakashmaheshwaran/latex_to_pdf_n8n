@@ -53,6 +53,16 @@ function validateLatexContent(content: string): { isValid: boolean; warnings: st
 		warnings.push('Bibliography commands detected. Make sure biblatex package is installed and properly configured.');
 	}
 	
+	// Check for common package errors
+	if (content.includes('\\usepackage{adjustwidth}')) {
+		warnings.push('Use \\usepackage{changepage} instead of \\usepackage{adjustwidth}. The adjustwidth environment is provided by the changepage package.');
+	}
+	
+	// Check for infinite loop patterns
+	if (content.match(/\\newcommand.*\\renewcommand.*\\newcommand/s)) {
+		warnings.push('Potential infinite command redefinition detected. This may cause "TeX capacity exceeded" errors.');
+	}
+	
 	return {
 		isValid: warnings.length === 0 || warnings.every(w => w.includes('Custom document class') || w.includes('Bibliography')),
 		warnings
@@ -96,6 +106,19 @@ async function convertLatexToPdf(latexContent: string, options: LatexOptions): P
 				errorMessage += '• A LaTeX command/package is not available in your LaTeX installation\n';
 				errorMessage += '• Missing \\usepackage{} declarations in your document\n';
 				errorMessage += '• Typo in command name';
+			}
+			
+			if (error.message.includes('adjustwidth.sty')) {
+				errorMessage += '\n\n💡 For adjustwidth environment:\n';
+				errorMessage += '• Use \\usepackage{changepage} instead of \\usepackage{adjustwidth}\n';
+				errorMessage += '• The adjustwidth environment is provided by changepage package';
+			}
+			
+			if (error.message.includes('TeX capacity exceeded')) {
+				errorMessage += '\n\n💡 TeX capacity exceeded usually means:\n';
+				errorMessage += '• Infinite loop in LaTeX code (check \\newcommand definitions)\n';
+				errorMessage += '• Very deep nesting or recursion\n';
+				errorMessage += '• Try simplifying your document structure';
 			}
 
 			reject(new Error(errorMessage));
