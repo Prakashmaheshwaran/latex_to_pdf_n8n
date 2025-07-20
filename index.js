@@ -1,0 +1,1 @@
+module.exports = require('./dist/nodes/LatexToPdf/LatexToPdf.node.js'); 

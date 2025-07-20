@@ -1,0 +1,51 @@
+# Source files
+nodes/
+scripts/
+examples/
+
+# Development files
+.eslintrc.js
+.prettierrc
+tsconfig.json
+gulpfile.js
+
+# Build tools
+*.tsbuildinfo
+
+# Testing
+test/
+tests/
+*.test.*
+*.spec.*
+
+# Documentation
+CHANGELOG.md
+docs/
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Dependencies (keep node_modules in case of local dev)
+node_modules/
+
+# Coverage
+coverage/
+
+# Temporary files
+tmp/
+temp/ 

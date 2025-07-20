@@ -1,0 +1,82 @@
+{
+  "name": "LaTeX to PDF Example",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "3b2e3a8e-1234-4f5a-8c6b-1a2b3c4d5e6f",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "document",
+        "operation": "convert",
+        "inputType": "text",
+        "latexContent": "\\documentclass{article}\n\\usepackage[utf8]{inputenc}\n\\usepackage{amsmath}\n\\usepackage{graphicx}\n\n\\title{Sample LaTeX Document}\n\\author{n8n LaTeX to PDF Node}\n\\date{\\today}\n\n\\begin{document}\n\n\\maketitle\n\n\\section{Introduction}\nThis is a sample LaTeX document generated using the n8n LaTeX to PDF community node.\n\n\\section{Mathematical Expressions}\nHere's a mathematical formula:\n\\begin{equation}\nE = mc^2\n\\end{equation}\n\n\\section{Lists}\n\\subsection{Unordered List}\n\\begin{itemize}\n    \\item First item\n    \\item Second item\n    \\item Third item\n\\end{itemize}\n\n\\subsection{Ordered List}\n\\begin{enumerate}\n    \\item First step\n    \\item Second step\n    \\item Third step\n\\end{enumerate}\n\n\\section{Conclusion}\nThis document demonstrates the basic functionality of converting LaTeX to PDF using n8n.\n\n\\end{document}",
+        "outputBinaryPropertyName": "pdf",
+        "latexCmd": "pdflatex",
+        "passes": 1
+      },
+      "id": "7f8e9a0b-5678-4c9d-8e1f-2a3b4c5d6e7f",
+      "name": "LaTeX to PDF",
+      "type": "n8n-nodes-pdf-latex.latexToPdf",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "={{ 'latex-output-' + new Date().getTime() + '.pdf' }}",
+        "dataPropertyName": "pdf"
+      },
+      "id": "9c0d1e2f-9abc-4def-8901-3a4b5c6d7e8f",
+      "name": "Save PDF to Disk",
+      "type": "n8n-nodes-base.writeBinaryFile",
+      "typeVersion": 1,
+      "position": [
+        680,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "LaTeX to PDF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LaTeX to PDF": {
+      "main": [
+        [
+          {
+            "node": "Save PDF to Disk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {},
+  "createdAt": "2024-01-01T00:00:00.000Z",
+  "updatedAt": "2024-01-01T00:00:00.000Z",
+  "id": "1",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  }
+} 

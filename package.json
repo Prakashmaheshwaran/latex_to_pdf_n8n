@@ -1,0 +1,62 @@
+{
+  "name": "n8n-nodes-pdf-latex",
+  "version": "0.1.0",
+  "description": "n8n community node for converting LaTeX to PDF using node-latex",
+  "keywords": [
+    "n8n",
+    "n8n-community-node-package",
+    "latex",
+    "pdf",
+    "conversion"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/kash/n8n-nodes-pdf-latex",
+  "author": {
+    "name": "Kash",
+    "email": "your.email@example.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kash/n8n-nodes-pdf-latex.git"
+  },
+  "engines": {
+    "node": ">=18.10",
+    "pnpm": ">=7.18"
+  },
+  "packageManager": "pnpm@8.6.2",
+  "main": "index.js",
+  "scripts": {
+    "preinstall": "node scripts/check-latex.js",
+    "build": "tsc && gulp build:icons",
+    "dev": "tsc --watch",
+    "format": "prettier nodes --write",
+    "lint": "eslint nodes package.json",
+    "lintfix": "eslint nodes package.json --fix",
+    "prepublishOnly": "npm run build && npm run lint -s"
+  },
+  "files": [
+    "dist"
+  ],
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "nodes": [
+      "dist/nodes/LatexToPdf/LatexToPdf.node.js"
+    ]
+  },
+  "devDependencies": {
+    "@types/node": "^18.16.16",
+    "@typescript-eslint/parser": "^5.59.1",
+    "eslint": "^8.40.0",
+    "eslint-plugin-n8n-nodes-base": "^1.11.0",
+    "gulp": "^4.0.2",
+    "n8n-workflow": "*",
+    "prettier": "^2.8.8",
+    "typescript": "^5.1.3"
+  },
+  "peerDependencies": {
+    "n8n-workflow": "*"
+  },
+  "dependencies": {
+    "node-latex": "^3.1.0"
+  }
+} 
