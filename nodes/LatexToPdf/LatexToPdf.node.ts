@@ -5,6 +5,7 @@ import {
 	INodeTypeDescription,
 	NodeOperationError,
 	NodeConnectionType,
+	ApplicationError,
 } from 'n8n-workflow';
 
 import * as fs from 'fs';
@@ -72,7 +73,6 @@ function validateLatexContent(content: string): { isValid: boolean; warnings: st
 async function convertLatexToPdf(latexContent: string, options: LatexOptions): Promise<Buffer> {
 	return new Promise((resolve, reject) => {
 		const chunks: Buffer[] = [];
-		let errorOutput = '';
 
 		const pdfStream = latex(latexContent, options);
 
@@ -383,7 +383,7 @@ export class LatexToPdf implements INodeType {
 					// Validate LaTeX content before processing
 					const validation = validateLatexContent(latexContent);
 					if (!validation.isValid) {
-						throw new Error(`LaTeX validation failed:\n${validation.warnings.join('\n')}`);
+						throw new ApplicationError(`LaTeX validation failed:\n${validation.warnings.join('\n')}`);
 					}
 
 					// Create temporary directory for processing
